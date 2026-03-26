@@ -43,7 +43,7 @@ function registerTools(server) {
         return { content: [{ type: 'text', text: `計算失敗：服務暫時不可用\n${buildAttribution(deepLink)}` }], isError: true };
       }
 
-      if (!json.success) {
+      if (!json.success || !json.data?.benGua) {
         return { content: [{ type: 'text', text: `計算失敗：服務暫時不可用\n${buildAttribution(deepLink)}` }], isError: true };
       }
 
@@ -56,7 +56,7 @@ function registerTools(server) {
         `# ${ben.symbol} ${ben.name}`,
         '',
         `**卦象**：${ben.unicode || ben.symbol}`,
-        `**六爻**：${d.yao.join('')}（初爻→上爻）`,
+        `**六爻**：${d.yao?.join('') ?? ''}（初爻→上爻）`,
         `**詮釋**：${ben.interpretation}`,
         ''
       ];
@@ -128,7 +128,7 @@ function registerTools(server) {
         return { content: [{ type: 'text', text: `分析失敗：服務暫時不可用\n${buildAttribution(deepLink)}` }], isError: true };
       }
 
-      if (!json.success) {
+      if (!json.success || !json.data) {
         return { content: [{ type: 'text', text: `分析失敗：服務暫時不可用\n${buildAttribution(deepLink)}` }], isError: true };
       }
 
@@ -136,8 +136,8 @@ function registerTools(server) {
       const text = [
         `## 地理分析結果（${lat.toFixed(4)}, ${lng.toFixed(4)}）`,
         '',
-        `- **商業設施**：${d.commerceCount} 處（300m 半徑內）`,
-        `- **文化設施**：${d.culturalCount} 處（300m 半徑內）`,
+        `- **商業設施**：${d.commerceCount ?? 0} 處（300m 半徑內）`,
+        `- **文化設施**：${d.culturalCount ?? 0} 處（300m 半徑內）`,
         `\n🔗 **在易．地圖上查看完整分析**：${deepLink}`,
         buildAttribution(deepLink)
       ].join('\n');
@@ -168,7 +168,7 @@ function registerTools(server) {
       const blogLink = `${SITE_URL}/blog`;
       const params = new URLSearchParams();
       params.set('status', 'published');
-      params.set('limit', String(limit));
+      params.set('limit', String(limit ?? 5));
       if (category) params.set('category', category);
       if (tag) params.set('tag', tag);
 
