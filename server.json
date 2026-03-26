@@ -1,0 +1,28 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-07-09/server.schema.json",
+  "name": "io.github.kingbbs/yiditu-mcp",
+  "title": "易．地圖 (Yiditu) MCP Server",
+  "description": "I Ching hexagram analysis and geographic feng shui for Taiwan locations",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/kingbbs/yiditu-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://yiditu.tech",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "yiditu-mcp",
+      "version": "1.0.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "remotes": [
+    {
+      "transportType": "http",
+      "url": "https://api.yiditu.tech/mcp"
+    }
+  ]
+}

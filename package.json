@@ -1,0 +1,43 @@
+{
+  "name": "yiditu-mcp",
+  "version": "1.0.0",
+  "description": "易．地圖 MCP Server — 台灣地理易經分析工具，適用於 Claude Desktop、Cursor、Windsurf 等 AI 助手",
+  "main": "index.js",
+  "bin": {
+    "yiditu-mcp": "index.js"
+  },
+  "files": [
+    "index.js",
+    "src/"
+  ],
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "iching",
+    "yiditu",
+    "taiwan",
+    "fengshui",
+    "hexagram",
+    "易經",
+    "風水",
+    "卦象"
+  ],
+  "mcpName": "io.github.kingbbs/yiditu-mcp",
+  "author": "kingbbs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kingbbs/yiditu-mcp"
+  },
+  "homepage": "https://yiditu.tech",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.28.0",
+    "zod": "^3.25.0"
+  }
+}
