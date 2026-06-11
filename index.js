@@ -3,6 +3,8 @@
 const { McpServer } = require('@modelcontextprotocol/sdk/server/mcp.js');
 const { StdioServerTransport } = require('@modelcontextprotocol/sdk/server/stdio.js');
 const { registerTools } = require('./src/tools.js');
+const { registerPrompts } = require('./src/prompts.js');
+const { registerResources } = require('./src/resources.js');
 const pkg = require('./package.json');
 
 async function main() {
@@ -13,6 +15,8 @@ async function main() {
   });
 
   registerTools(server);
+  registerPrompts(server);
+  registerResources(server);
 
   const transport = new StdioServerTransport();
   await server.connect(transport);

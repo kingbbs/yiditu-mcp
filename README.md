@@ -2,6 +2,8 @@
 
 > **Yiditu MCP Server** — I Ching hexagram analysis and geographic feng shui for Taiwan locations. Works with Claude Desktop, Cursor, Windsurf, and any MCP-compatible AI assistant. Powered by [yiditu.tech](https://yiditu.tech).
 
+[![MCP Badge](https://lobehub.com/badge/mcp/kingbbs-yiditu-mcp)](https://lobehub.com/mcp/kingbbs-yiditu-mcp)
+
 ---
 
 ## 關於易．地圖
@@ -106,6 +108,26 @@ claude mcp add yiditu -- npx -y yiditu-mcp
 **適用場景**：易經入門學習、六十四卦解說、風水知識查詢、台灣城市卦象特色
 
 **回傳內容**：文章標題、摘要、分類、標籤、閱讀連結
+
+## 提供的提示詞（Prompts）
+
+可直接套用的工作流程模板，自動串接上述工具與資源。
+
+| 提示詞 | 說明 | 參數 |
+|--------|------|------|
+| `fengshui_location_report` | 為某地點產生完整風水選址報告（卦象 + 商圈） | `location`（必填）、`industry`（選填） |
+| `compare_two_locations` | 比較兩地卦象與地理條件，依用途給出建議 | `location_a`、`location_b`（必填）、`purpose`（選填） |
+| `explain_my_hexagram` | 用白話解讀某卦象並結合使用者情境 | `hexagram_name`（必填）、`context`（選填） |
+
+## 提供的資源（Resources）
+
+唯讀的易經卦象參考資料，供 AI 直接引用。
+
+| 資源 URI | 說明 | 格式 |
+|----------|------|------|
+| `yiditu://hexagrams/64` | 六十四卦對照表（卦名、符號、二進位、卦辭、適合產業） | JSON |
+| `yiditu://hexagram/{id}` | 單卦詳解；`{id}` 可為卦名（`水雷屯`）、binary（`100010`）或卦象符號（`䷂`） | JSON |
+| `yiditu://algorithm/six-dimensions` | 六爻演算法的六維數據與動態閾值說明 | Markdown |
 
 ## 資料來源
 

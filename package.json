@@ -1,6 +1,6 @@
 {
   "name": "yiditu-mcp",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "易．地圖 MCP Server — 台灣地理易經分析工具，適用於 Claude Desktop、Cursor、Windsurf 等 AI 助手",
   "main": "index.js",
   "bin": {
