@@ -39,5 +39,9 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.28.0",
     "zod": "^3.25.0"
+  },
+  "overrides": {
+    "fast-uri": "^3.1.2",
+    "path-to-regexp": "^8.4.0"
   }
 }
