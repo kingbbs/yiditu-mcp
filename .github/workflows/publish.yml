@@ -1,0 +1,36 @@
+name: Publish to npm
+
+# 推 v* 標籤即發布（npm Trusted Publishing／OIDC，免 token、免 2FA 驗證碼，自動附 provenance）
+# npmjs.com 套件設定 → Trusted Publisher：GitHub Actions、kingbbs/yiditu-mcp、publish.yml
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+  id-token: write # OIDC，Trusted Publishing 必需
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24 # 內建 npm 11（Trusted Publishing 需 >= 11.5.1）
+          registry-url: https://registry.npmjs.org
+      - name: Tag must match package.json version
+        run: |
+          PKG="v$(node -p 'require("./package.json").version')"
+          [ "$PKG" = "$GITHUB_REF_NAME" ] || { echo "tag $GITHUB_REF_NAME != package.json $PKG"; exit 1; }
+      - run: npm ci
+      - name: Audit gate (high / critical)
+        run: npm audit --audit-level=high
+      - name: Smoke test (server starts and lists tools)
+        run: |
+          printf '%s\n' \
+            '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"ci","version":"0"}}}' \
+            '{"jsonrpc":"2.0","method":"notifications/initialized"}' \
+            '{"jsonrpc":"2.0","id":2,"method":"tools/list"}' \
+            | timeout 10 node index.js | grep -q '"calculate_hexagram"'
+      - run: npm publish

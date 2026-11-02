@@ -30,7 +30,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kingbbs/yiditu-mcp"
+    "url": "git+https://github.com/kingbbs/yiditu-mcp.git"
   },
   "homepage": "https://yiditu.tech",
   "engines": {
