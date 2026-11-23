@@ -5,6 +5,9 @@ const API_BASE = 'https://api.yiditu.tech';
 const SITE_URL = 'https://yiditu.tech';
 const FETCH_TIMEOUT_MS = 15000;
 
+// 三個工具都只查詢易．地圖自有資料、不改動任何使用者可見狀態
+const READ_ONLY_ANNOTATIONS = { readOnlyHint: true, openWorldHint: false };
+
 async function safeFetchJSON(url, options = {}) {
   const res = await fetch(url, { ...options, signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -29,6 +32,7 @@ function registerTools(server) {
       lat: z.number().min(21.8).max(25.4).describe('緯度（WGS84）'),
       lng: z.number().min(119.3).max(122.1).describe('經度（WGS84）')
     },
+    { title: '易經卦象計算', ...READ_ONLY_ANNOTATIONS },
     async ({ lat, lng }) => {
       const deepLink = `${SITE_URL}/?lat=${lat}&lng=${lng}`;
 
@@ -114,6 +118,7 @@ function registerTools(server) {
       lat: z.number().min(21.8).max(25.4).describe('緯度（WGS84）'),
       lng: z.number().min(119.3).max(122.1).describe('經度（WGS84）')
     },
+    { title: '周邊設施密度分析', ...READ_ONLY_ANNOTATIONS },
     async ({ lat, lng }) => {
       const deepLink = `${SITE_URL}/?lat=${lat}&lng=${lng}`;
 
@@ -164,6 +169,7 @@ function registerTools(server) {
       tag: z.string().max(50).optional().describe('標籤篩選'),
       limit: z.number().min(1).max(20).default(5).optional().describe('回傳筆數（預設 5）')
     },
+    { title: 'Blog 文章搜尋', ...READ_ONLY_ANNOTATIONS },
     async ({ category, tag, limit }) => {
       const blogLink = `${SITE_URL}/blog`;
       const params = new URLSearchParams();
